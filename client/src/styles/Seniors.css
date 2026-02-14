@@ -1,0 +1,62 @@
+/* Background */
+.mentor-container {
+  padding: 60px 30px;
+  text-align: center;
+  background: linear-gradient(135deg, #eef2f7, #ffffff);
+  min-height: 100vh;
+}
+
+/* Title */
+.mentor-title {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  color: #222;
+}
+
+/* Grid */
+.mentor-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 35px;
+}
+
+/* Card */
+.mentor-card {
+  background: rgba(255,255,255,0.8);
+  padding: 30px 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  transition: 0.4s;
+  position: relative;
+}
+
+/* Hover effect */
+.mentor-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+/* Photo — NOT circular now */
+.mentor-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+/* Name */
+.mentor-card h3 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #111;
+}
+
+/* Info text */
+.mentor-card p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #444;
+}
