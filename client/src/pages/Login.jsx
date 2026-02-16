@@ -1,11 +1,15 @@
 import { useState } from "react";
 import API from "../services/api";
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/Login.css";
 
 function Login() {
   const [form, setForm] = useState({
     email: "",
     password: ""
   });
+
+  const navigate = useNavigate();
 
   const handleChange = e => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -17,13 +21,11 @@ function Login() {
     try {
       const res = await API.post("/auth/login", form);
 
-      // Token save
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
       alert("Login Successful ✅");
-
-      window.location.href = "/dashboard";
+      navigate("/dashboard");
 
     } catch (err) {
       alert(err.response?.data || "Login failed");
@@ -31,29 +33,37 @@ function Login() {
   };
 
   return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h2>Login</h2>
+    <div className="login-container">
+      <div className="login-card">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+        <h2>Welcome Back 👋</h2>
+        <p className="subtitle">Login to continue</p>
 
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          required
-        />
-        <br /><br />
+        <form onSubmit={handleSubmit}>
+          <input
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            required
+          />
 
-        <button type="submit">Login</button>
-      </form>
+          <input
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={handleChange}
+            required
+          />
+
+          <button type="submit">Login</button>
+        </form>
+
+        <div className="login-links">
+          <Link to="/register">Create account</Link>
+          <Link to="/forgot">Forgot password?</Link>
+        </div>
+
+      </div>
     </div>
   );
 }

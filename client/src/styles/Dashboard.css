@@ -1,0 +1,23 @@
+.dashboard {
+  padding: 40px;
+  text-align: center;
+}
+
+.profile-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  width: 320px;
+  margin: 30px auto;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.quick-actions button {
+  margin: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: #4f6bed;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}

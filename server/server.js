@@ -36,7 +36,8 @@ const limiter = rateLimit({
 // app.use(mongoSanitize());
 
 
-app.use(limiter);
+app.use("/api/auth", limiter); // only login/signup protect karo
+
 
 
 const adminRoutes = require("./routes/adminRoutes");
