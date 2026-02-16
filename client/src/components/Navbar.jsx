@@ -1,12 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 
 function Navbar() {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const storedUser =
+      JSON.parse(localStorage.getItem("user"));
+    setUser(storedUser);
+  }, []);
 
   const handleLogout = () => {
     localStorage.clear();
-    window.location.href = "/login";
+    setUser(null);
+    navigate("/login");
   };
 
   return (
@@ -23,7 +32,7 @@ function Navbar() {
 
         {user && <Link to="/dashboard">Dashboard</Link>}
 
-        {/* Chat only after login */}
+        {/* Chat inbox */}
         {user && (
           <Link to="/dashboard">
             Chat

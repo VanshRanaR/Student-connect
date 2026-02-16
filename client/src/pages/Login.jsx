@@ -26,6 +26,7 @@ function Login() {
 
       alert("Login Successful ✅");
       navigate("/dashboard");
+      window.location.reload();   // 👈 added this
 
     } catch (err) {
       alert(err.response?.data || "Login failed");

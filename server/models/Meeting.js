@@ -3,23 +3,22 @@ const mongoose = require("mongoose");
 const meetingSchema = new mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
+    ref: "User"
   },
 
-  senior: {
+  mentor: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
+    ref: "User"
   },
+
+  date: String,
+  time: String,
 
   message: String,
 
-  date: String,
-
   status: {
     type: String,
-    enum: ["pending", "accepted", "rejected"],
+    enum: ["pending", "approved", "rejected"],
     default: "pending"
   }
 

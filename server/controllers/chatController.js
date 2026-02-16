@@ -1,6 +1,5 @@
 const Message = require("../models/Message");
 
-
 // SEND MESSAGE
 exports.sendMessage = async (req, res) => {
   try {
@@ -23,9 +22,7 @@ exports.sendMessage = async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({
-      message: "Server error"
-    });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -41,21 +38,18 @@ exports.getMessages = async (req, res) => {
         { sender: user1, receiver: user2 },
         { sender: user2, receiver: user1 }
       ]
-    })
-      .sort({ createdAt: 1 });
+    }).sort({ createdAt: 1 });
 
     res.json(messages);
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({
-      message: "Server error"
-    });
+    res.status(500).json({ message: "Server error" });
   }
 };
 
 
-// ⭐ DASHBOARD CHAT LIST (WHATSAPP STYLE)
+// DASHBOARD INBOX
 exports.getMyChats = async (req, res) => {
   try {
     const userId = req.user.id;
@@ -93,8 +87,6 @@ exports.getMyChats = async (req, res) => {
 
   } catch (err) {
     console.log(err);
-    res.status(500).json({
-      message: "Server error"
-    });
+    res.status(500).json({ message: "Server error" });
   }
 };

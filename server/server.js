@@ -1,69 +1,91 @@
-
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const http = require("http");
+const { Server } = require("socket.io");
+
 require("dotenv").config();
+
 const app = express();
+const server = http.createServer(app);
+
+// SOCKET.IO SETUP
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    credentials: true
+  }
+});
+
+// SOCKET CONNECTION
+io.on("connection", socket => {
+  console.log("User Connected:", socket.id);
+
+  // Join room using userId
+  socket.on("join", userId => {
+    socket.join(userId);
+  });
+
+  // Send message realtime
+  socket.on("sendMessage", msg => {
+    io.to(msg.receiver).emit("receiveMessage", msg);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("User disconnected");
+  });
+});
+
+
+// CORS
 app.use(cors({
   origin: "http://localhost:5173",
   credentials: true
 }));
 
 app.use(express.json());
+
+
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
-.then(()=>console.log("MongoDB Connected 👍"))
-.catch(err=>console.log(err));
-app.get("/", (req,res)=>{
-  res.send("Backend working 👍");
-});
-// const helmet = require("helmet");
-
-// app.use(
-//   helmet({
-//     crossOriginResourcePolicy: false
-//   })
-// );
+  .then(() => console.log("MongoDB Connected 👍"))
+  .catch(err => console.log(err));
 
 
+// Rate limit login/signup
 const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
+  windowMs: 15 * 60 * 1000,
   max: 100
 });
-// const mongoSanitize = require("express-mongo-sanitize");
-// app.use(mongoSanitize());
+
+app.use("/api/auth", limiter);
 
 
-app.use("/api/auth", limiter); // only login/signup protect karo
+// Static uploads
+app.use("/uploads", cors(), express.static("uploads"));
 
 
-
+// Routes
 const adminRoutes = require("./routes/adminRoutes");
 app.use("/api/admin", adminRoutes);
-app.use(
-  "/uploads",
-  cors(),
-  express.static("uploads")
-);
-
-// const xss = require("xss-clean");
-// app.use(xss());
-const hpp = require("hpp");
-app.use(hpp());
 
 const authRoutes = require("./routes/authRoutes");
 app.use("/api/auth", authRoutes);
+
 const userRoutes = require("./routes/userRoutes");
 app.use("/api/users", userRoutes);
+
 const chatRoutes = require("./routes/chatRoutes");
 app.use("/api/chat", chatRoutes);
 
 const meetingRoutes = require("./routes/meetingRoutes");
 app.use("/api/meetings", meetingRoutes);
 
+
+// Server start
 const PORT = 5000;
-app.listen(PORT, ()=>{
-  console.log("Server running on port 5000");
+server.listen(PORT, () => {
+  console.log("Server running on port", PORT);
 });

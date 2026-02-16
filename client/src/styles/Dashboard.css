@@ -1,23 +1,124 @@
+/* MAIN BACKGROUND */
 .dashboard {
-  padding: 40px;
+  min-height: 100vh;
+  padding: 40px 20px;
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f6fb;
+}
+
+
+/* TITLE */
+.dash-title {
   text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 35px;
+  color: #1e293b;
 }
 
+
+/* PROFILE CARD */
 .profile-card {
-  background: white;
+  max-width: 420px;
+  margin: auto;
   padding: 25px;
-  border-radius: 12px;
-  width: 320px;
-  margin: 30px auto;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  text-align: center;
+  margin-bottom: 35px;
+  transition: 0.25s;
 }
 
-.quick-actions button {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  background: #4f6bed;
-  color: white;
-  border-radius: 6px;
+.profile-card:hover {
+  transform: translateY(-3px);
+}
+
+.profile-card h2 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.profile-card p {
+  color: #64748b;
+}
+
+/* ROLE BADGE */
+.role {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: #e0e7ff;
+  color: #4338ca;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
+/* CHAT INBOX */
+.chat-inbox {
+  max-width: 700px;
+  margin: auto;
+  padding: 25px;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.chat-inbox h2 {
+  margin-bottom: 20px;
+  color: #0f172a;
+}
+
+
+/* CHAT ITEM */
+.chat-preview {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 14px;
+  border-radius: 12px;
   cursor: pointer;
+  transition: 0.2s;
+  border: 1px solid #f1f5f9;
+}
+
+.chat-preview:hover {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+
+/* AVATAR */
+.chat-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #e2e8f0;
+}
+
+
+/* CHAT TEXT */
+.chat-info h4 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+.chat-info p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* EMPTY CHAT */
+.no-chat {
+  text-align: center;
+  color: #94a3b8;
 }

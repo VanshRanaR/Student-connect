@@ -5,10 +5,10 @@ const auth = require("../middleware/auth");
 // Send message
 router.post("/send", auth, chat.sendMessage);
 
-// Get chat between two users
-router.get("/:user2", auth, chat.getMessages);
+// Dashboard inbox
+router.get("/inbox", auth, chat.getMyChats);
 
-// Dashboard chat list
-router.get("/my-chats", auth, chat.getMyChats);
+// Chat messages between two users
+router.get("/messages/:user2", auth, chat.getMessages);
 
 module.exports = router;
