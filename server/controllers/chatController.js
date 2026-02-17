@@ -66,22 +66,26 @@ exports.getMyChats = async (req, res) => {
 
     const inbox = {};
 
-    messages.forEach(msg => {
-      const otherUser =
-        msg.sender._id.toString() === userId
-          ? msg.receiver
-          : msg.sender;
+   messages.forEach(msg => {
 
-      if (!inbox[otherUser._id]) {
-        inbox[otherUser._id] = {
-          userId: otherUser._id,
-          name: otherUser.name,
-          photo: otherUser.photo,
-          lastMessage: msg.text,
-          time: msg.createdAt
-        };
-      }
-    });
+  if (!msg.sender || !msg.receiver) return; // 💥 FIX
+
+  const otherUser =
+    msg.sender._id.toString() === userId
+      ? msg.receiver
+      : msg.sender;
+
+  if (!inbox[otherUser._id]) {
+    inbox[otherUser._id] = {
+      userId: otherUser._id,
+      name: otherUser.name,
+      photo: otherUser.photo,
+      lastMessage: msg.text,
+      time: msg.createdAt
+    };
+  }
+});
+
 
     res.json(Object.values(inbox));
 

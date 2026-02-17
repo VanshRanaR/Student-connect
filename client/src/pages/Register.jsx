@@ -58,7 +58,7 @@ function Register() {
     <div className="register-container">
       <div className="register-card">
 
-        <h2>Create Account ✨</h2>
+        <h2>Create Accounts</h2>
         <p className="subtitle">Join Mentor Connect</p>
 
         {/* Role Toggle */}
