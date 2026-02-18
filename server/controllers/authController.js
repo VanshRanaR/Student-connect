@@ -38,8 +38,9 @@ exports.registerSenior = async (req, res) => {
       company,
       package,
       batch,
-      photo: req.file ? req.file.filename : ""
 
+      // ⭐ CHANGE ONLY THIS LINE
+      photo: req.file ? req.file.path : ""
     });
 
     res.json({
@@ -69,9 +70,9 @@ exports.loginUser = async (req, res) => {
       return res.status(400).json("Waiting for admin approval");
 
     const token = jwt.sign(
-  { id: user._id, role: user.role },
-  process.env.JWT_SECRET,
-  { expiresIn: "1d" }
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1d" }
     );
 
     res.json({ token, user });

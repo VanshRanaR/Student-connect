@@ -62,7 +62,7 @@ app.use("/api/auth", limiter);
 
 
 // Static uploads
-app.use("/uploads", cors(), express.static("uploads"));
+;
 
 
 // Routes
@@ -80,6 +80,9 @@ app.use("/api/chat", chatRoutes);
 
 const meetingRoutes = require("./routes/meetingRoutes");
 app.use("/api/meetings", meetingRoutes);
+const uploadRoutes = require("./routes/uploadRoutes");
+
+app.use("/api/upload", uploadRoutes);
 
 
 // Server start

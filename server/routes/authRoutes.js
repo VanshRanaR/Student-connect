@@ -4,7 +4,7 @@ const upload = require("../middleware/upload");
 
 router.post("/register-student", auth.registerStudent);
 
-// Add photo upload here for senior
+// Cloudinary upload yahin ho raha hai middleware se
 router.post("/register-senior", upload.single("photo"), auth.registerSenior);
 
 router.post("/login", auth.loginUser);
