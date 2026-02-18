@@ -9,7 +9,6 @@ function Navbar() {
   useEffect(() => {
     const storedUser =
       JSON.parse(localStorage.getItem("user") || "null");
-
     setUser(storedUser);
   }, []);
 
@@ -27,23 +26,27 @@ function Navbar() {
         MentorConnect
       </div>
 
-      {/* Links */}
+      {/* Navigation Links */}
       <div className="nav-links">
         <Link to="/">Mentors</Link>
 
         {user && <Link to="/dashboard">Dashboard</Link>}
 
-        {/* Chat inbox */}
         {user && (
           <Link to="/dashboard">
-            Chat
+            Chats
           </Link>
         )}
 
-        {user && <Link to="/meetings">Meetings</Link>}
+     {user && (
+  <Link to="/meetings">
+    Meetings
+  </Link>
+)}
+
       </div>
 
-      {/* Auth */}
+      {/* Authentication Section */}
       <div className="auth-area">
         {!user ? (
           <>
@@ -54,7 +57,9 @@ function Navbar() {
           </>
         ) : (
           <>
-            <span>{user.name}</span>
+            <span className="username">
+              {user.name}
+            </span>
             <button onClick={handleLogout}>
               Logout
             </button>

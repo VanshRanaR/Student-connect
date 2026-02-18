@@ -5,6 +5,7 @@ import "../styles/Seniors.css";
 
 function Seniors() {
   const [seniors, setSeniors] = useState([]);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,18 +14,35 @@ function Seniors() {
       .catch(err => console.log(err));
   }, []);
 
+  // Filter mentors by name
+  const filteredSeniors = seniors.filter(s =>
+    s.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <div className="mentor-container">
-      <h1 className="mentor-title">Our Mentors</h1>
 
+      {/* HERO SECTION */}
+      <div className="mentor-hero">
+        <h1>Find Your Perfect Mentor </h1>
+        <p>
+          Connect with seniors for guidance, placements
+          and career growth.
+        </p>
+
+        <input
+          className="mentor-search"
+          placeholder="Search mentor by name..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+        />
+      </div>
+
+      {/* GRID */}
       <div className="mentor-grid">
-        {seniors.map(senior => (
-          <div
-            key={senior._id}
-            className="mentor-card"
-            onClick={() => navigate(`/chat/${senior._id}`)}
-          >
-            {/* Image wrapper */}
+        {filteredSeniors.map(senior => (
+          <div key={senior._id} className="mentor-card">
+
             <div className="mentor-photo-wrapper">
               <img
                 className="mentor-photo"
@@ -33,12 +51,9 @@ function Seniors() {
                     ? senior.photo.startsWith("http")
                       ? senior.photo
                       : `http://localhost:5000/uploads/${senior.photo}`
-                    : "https://via.placeholder.com/300x220"
+                    : "/default-avatar.png"
                 }
                 alt={senior.name}
-                onError={(e) =>
-                  (e.target.src = "https://via.placeholder.com/300x220")
-                }
               />
             </div>
 
@@ -46,6 +61,16 @@ function Seniors() {
             <p>{senior.company}</p>
             <p>{senior.package}</p>
             <p>Batch {senior.batch}</p>
+
+            <div className="mentor-buttons">
+              <button onClick={() => navigate(`/chat/${senior._id}`)}>
+                Chat
+              </button>
+
+              <button onClick={() => navigate(`/meeting/${senior._id}`)}>
+                Book Meeting
+              </button>
+            </div>
           </div>
         ))}
       </div>
