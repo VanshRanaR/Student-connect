@@ -1,0 +1,17 @@
+services:
+  backend:
+    build: ./server
+    container_name: mentor-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb+srv://vanshrana96669_db_user:2xXJqzEg9WokHAWr@cluster0.nb0ych9.mongodb.net/?appName=Cluster0
+      - PORT=5000
+
+  frontend:
+    build: ./client
+    container_name: mentor-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
